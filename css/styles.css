@@ -1,0 +1,805 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+    height: 12px; /* Set the height for horizontal scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #c3241c, #f34747); /* Gradient from top to bottom */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #f34747, #c3241c); /* Inverse gradient effect when hovered */
+}
+
+::-webkit-scrollbar-track {
+    background: #353435; /* Dark background for the scrollbar track */
+    border-radius: 10px; /* Rounded corners for the scrollbar track */
+}
+
+::-webkit-scrollbar-corner {
+    background: #353435; /* Dark background for the corner (intersection of horizontal and vertical scrollbars) */
+}
+
+
+/* General styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #121312;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    position: fixed; /* Make header stay at the top */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure the header is above other content */
+    background-color: #1b1a1b; /* Ensures header has a background */
+    
+    /* Add subtle shadow effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.project-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Navigation menu */
+.menu {
+    display: flex;
+    gap: 40px;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #1b1a1b; /* Unhovered color */
+    transition: color 0.3s ease;
+}
+
+.menu a:hover {
+    color: #c3241c;
+}
+
+/* Download button */
+.download-btn {
+    font-family: 'Inter', sans-serif;  /* Set font to Inter */
+    background-color: #c3241c;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #c3241c;
+}
+
+/* Hero section */
+.hero {
+    text-align: center;
+}
+
+.hero-image {
+    margin-top: 60px; /* Spacing between buttons and image */
+}
+
+.hero-image img {
+    width: 70%; /* Increase image width to cover more space */
+    max-width: 900px; /* Increase max width to make it bigger */
+    border-radius: 20px; /* Rounded corners */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.hero-image img:hover {
+    transform: scale(1.08); /* Increase zoom effect */
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.6); /* Stronger glow effect */
+}
+
+
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: transparent; /* Make text color transparent to show the gradient */
+    background: linear-gradient(to right, #f34747 40%, #c3241c 60%); /* Faster gradient transition */
+    -webkit-background-clip: text; /* Ensures the gradient applies to the text */
+    background-clip: text; /* Ensures the gradient applies to the text */
+    margin-bottom: 10px;
+}
+
+
+
+.hero-title-white {
+    display: block; /* Ensures it starts on a new line */
+    font-size: 4rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #a0a0a0;
+}
+
+.hero-subtitle-second {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #d6d6d6;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+}
+
+.hero-subtitle-second {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #d6d6d6;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+}
+
+.online-indicator {
+    position: relative;
+    width: 16px;  /* Fixed size for the middle ball */
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgb(0, 209, 0);
+    margin-left: 16px;  /* Increased margin to add more space between text and ball */
+    animation: pulse 2.5s infinite;  /* Slower pulse animation */
+    z-index: 2;  /* Keep the middle ball on top */
+}
+
+.online-indicator::before {
+    content: '';
+    position: absolute;
+    width: 20px;  /* Smaller background ball */
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(0, 209, 0);
+    animation: grow-fade 2.5s infinite;  /* Slower animation for the background ball */
+    top: -2px;   /* Position the outer ball slightly behind the middle ball */
+    left: -2px;  /* Position the outer ball slightly behind the middle ball */
+    z-index: 1;  /* Ensure background ball stays behind the middle ball */
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+
+@keyframes grow-fade {
+    0% {
+        transform: scale(1);  /* Keep background ball at its initial size */
+        opacity: 0.3;  /* Start slightly transparent */
+    }
+    50% {
+        transform: scale(1.5);  /* Background ball grows */
+        opacity: 0.5;  /* Be slightly more visible */
+    }
+    100% {
+        transform: scale(1.5);  /* Keep it at the larger size */
+        opacity: 0;  /* Fade out completely */
+    }
+}
+
+
+/* Hero buttons */
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.features {
+    display: flex;
+    flex-direction: column;  /* Stack elements vertically */
+    align-items: center;     /* Center the elements horizontally */
+    margin-top: 140px; 
+}
+
+.features-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white; /* Make the text color white by default */
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: capitalize;
+}
+
+.features-title .gradient-text {
+    color: transparent; /* Make the text color transparent */
+    background: linear-gradient(to right, #f34747, #c3241c); /* Gradient from dark to light */
+    -webkit-background-clip: text; /* Ensures the gradient applies to the text */
+    background-clip: text;
+}
+
+
+
+.features-container {
+    display: flex;
+    justify-content: center; /* Centers the feature boxes */
+    flex-wrap: wrap; /* Allow responsiveness for smaller screens */
+    gap: 20px; /* Adds spacing between the boxes */
+}
+
+.feature-box {
+    background-color: #1c1d1c; 
+    border: 2px solid #2e2d2e;
+    border-radius: 15px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    padding: 20px 15px; 
+    margin-bottom: 80px; 
+    flex: 1; 
+    min-width: 250px; 
+    max-width: 320px; 
+    text-align: left; 
+    display: flex; 
+    align-items: center; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px); /* Adds a hover effect */
+}
+
+.feature-box i {
+    font-size: 2rem; 
+    color: white; 
+    margin-right: 15px; 
+    margin-left: 10px; 
+}
+
+.feature-text {
+    display: flex; 
+    flex-direction: column; 
+}
+
+.feature-text h3 {
+    margin: 0 0 5px; 
+    font-size: 1.2rem; 
+    color: transparent; 
+    font-weight: 700; 
+    background: linear-gradient(to right, #f34747, #c3241c); /* Gradient from dark to light */
+    background-clip: text; 
+    -webkit-background-clip: text; 
+}
+
+.feature-text p {
+    margin: 0; 
+    color: white; 
+    font-weight: 400; 
+    font-size: 1rem; 
+}
+
+/* Additional Content Section */
+.additional-content {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align items to the top */
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px; /* Limit the maximum width */
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Left Section - Library Image */
+.left-section img {
+    margin-top: 100px;
+    width: 100%;
+    max-width: 700px; /* Increased image size */
+    border-radius: 15px; /* Ensures rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* More rounded shadow effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect */
+.left-section img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5); /* Rounded shadow effect */
+}
+
+/* Right Section - Text and Details */
+.right-section {
+    flex: 1;
+    margin-left: 40px;
+    text-align: left;
+}
+
+.right-section h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.right-section .gradient-text {
+    color: transparent; /* Make the text color transparent */
+    background: linear-gradient(to right, #f34747, #c3241c); /* Gradient from dark to light */
+    -webkit-background-clip: text; /* Ensures the gradient applies to the text */
+    background-clip: text;
+}
+
+.right-section p {
+    font-size: 1rem;
+    color: #bbb;
+    margin-bottom: 30px;
+}
+
+/* Feature Details Section */
+.feature-details {
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+    gap: 30px; /* Space between sections */
+}
+
+.detail {
+    display: flex;
+    align-items: center;  /* Align items vertically */
+    gap: 15px;  /* Space between icon and text */
+}
+
+.detail i {
+    font-size: 2rem;
+    color: #c3241c;
+    min-width: 50px;  /* Ensures consistent spacing */
+    text-align: center;
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Align text within container */
+}
+
+.detail-content h4 {
+    font-size: 1.2rem;
+    color: white;
+    margin: 0;  /* Remove margin for better alignment */
+}
+
+.detail-content p {
+    font-size: 0.9rem;
+    color: #bbb;
+    margin: 5px 0 0 0;  /* Adjust top margin to bring it closer */
+}
+
+/* Text Below Additional Content */
+.additional-text {
+    font-size: 1rem;
+    color: #bbb;
+    text-align: center;
+    margin: 40px auto;
+    max-width: 1000px; /* Limit text width for better readability */
+    line-height: 1.5;
+    padding: 0 20px;
+}
+
+
+
+.btn {
+    font-family: 'Inter', sans-serif;  /* Set font to Inter */
+    border: none;
+    border-radius: 50px;
+    padding: 15px 50px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background-color: #c3241c;
+    color: #ffffff;
+}
+
+.primary-btn:hover {
+    background-color: #fd3429;
+    transform: scale(1.1); /* Add pop-up animation by scaling the button */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.secondary-btn {
+    background-color: #1c1d1c; /* Dark background color */
+    color: #ffffff; /* White text color */
+    outline: 2px solid #2e2d2e; /* Outline with the specified color */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.secondary-btn:hover {
+    background-color: #c3241c;
+    outline: 2px solid #c3241c; /* Outline with the specified color */
+    color: #ffffff;
+    transform: scale(1.1); /* Add pop-up animation by scaling the button */
+}
+
+
+/* Container styles (Grid and fading effect) */
+.container {
+    text-align: center;
+    padding-top: 200px; /* Adjust padding for better visual appearance */
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1920px;
+    height: 700px;
+    margin: 0 auto;
+}
+
+/* Square grid texture with fading effect at the top */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, rgba(38, 39, 39, 0.5) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(38, 39, 39, 0.5) 1px, transparent 1px);
+    background-size: 65px 65px;
+    z-index: -1;
+    
+    /* Apply radial gradient mask to fade away */
+    mask-image: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 99%);
+    mask-size: 100%;
+}
+
+/* About Wrapper to center content and title */
+.about-wrapper {
+    text-align: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Centers everything */
+}
+
+/* About Title Styling */
+.about-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white; /* Default text color */
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: capitalize;
+}
+
+/* Gradient effect only on 'About' word */
+.about-title .gradient-text {
+    color: transparent;
+    background: linear-gradient(to right, #f34747, #c3241c);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* About Section Styling */
+.about, .ogfortnite {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    color: white;
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: transparent;
+}
+
+/* Image Styles */
+.about-image, .ogfortnite-image {
+    width: 550px; /* Increased size */
+    height: auto;
+    border-radius: 15px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Image Hover Effects */
+.about-image:hover, .ogfortnite-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5); /* Rounded shadow effect */
+}
+
+/* Text Alignment */
+.about-text, .ogfortnite-text {
+    text-align: left;
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Headings */
+.about h2, .ogfortnite h2 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-weight: 900;
+}
+
+/* Paragraph Text */
+.about p, .ogfortnite p {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    color: #818080;
+    font-weight: 400;
+    font-family: Poppins, sans-serif;
+}
+
+/* Reverse flex order for second section */
+.ogfortnite {
+    flex-direction: row-reverse;
+}
+
+/* Adjust space between image and text */
+.about-image {
+    margin-right: 40px;
+}
+
+.ogfortnite-image {
+    margin-left: 40px;
+}
+
+
+/* FAQ Section */
+.faq-section {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.faq-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: capitalize;
+}
+
+.faq-title .gradient-text {
+    color: transparent;
+    background: linear-gradient(to right, #c3241c, #f34747);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* FAQ Wrapper */
+.faq-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* FAQ Items */
+.faq-item {
+    background-color: #1c1d1c; 
+    border: 2px solid #2e2d2e; 
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* FAQ Question */
+.faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.faq-question h3 {
+    font-size: 1.5rem;
+    color: white;
+    margin-left: 15px;
+    flex: 1;
+    text-align: left;
+}
+
+.faq-question i {
+    font-size: 1.8rem;
+    color: #f34747;
+}
+
+/* FAQ Answer */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    text-align: left;
+    color: #bbb;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* When active, expand answer */
+.faq-item.active .faq-answer {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+/* Footer Section */
+footer {
+    background-color: #1b1a1b; /* Dark background color */
+    color: white;
+    padding: 20px 0;
+    width: 100%; /* Make the footer span the entire width of the page */
+    margin-top: 50px;
+}
+
+/* Footer Content */
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Distribute logo, menu, and social icons evenly */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* Logo and Text */
+.footer-logo {
+    display: flex;
+    align-items: center; /* Align logo and text in a row */
+    gap: 10px; /* Space between logo and text */
+}
+
+.footer-logo-img {
+    width: 50px; /* Adjust the size of the logo */
+    height: auto;
+}
+
+.footer-logo h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f34747;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Navigation Menu */
+.menu {
+    display: flex;
+    gap: 30px; /* Space between navigation links */
+}
+
+.menu a {
+    font-size: 1.2rem;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu a:hover {
+    color: #f34747;
+    transform: translateY(-5px);
+}
+
+/* Social Media Icons */
+.socials {
+    display: flex;
+    gap: 20px; /* Space between social icons */
+}
+
+.social-icon {
+    font-size: 2rem;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #f34747;
+    transform: scale(1.1);
+}
+
+.social-icon i {
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover i {
+    transform: rotate(360deg);
+}
+
+/* Domain Name Section */
+.footer-domain {
+    text-align: center;
+    margin-left: 60px;
+    margin-bottom: 20px;
+
+}
+
+.footer-domain p {
+    font-size: 1rem;
+    color: white;
+    margin: 0;
+}
+
+.footer-domain a {
+    color: #f34747;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-domain a:hover {
+    text-decoration: underline;
+}
+
+/* New Footer Flex Layout */
+.footer-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Fix Layout to Center the Navigation and Domain Text */
+.footer-wrapper .footer-content {
+    display: flex;
+    justify-content: center; /* Center all items horizontally */
+    gap: 50px; /* Ensure space between elements */
+}
+
